@@ -55,7 +55,7 @@ def cross_map(source, target, delay, dimension):
         weights = 1 / (np.linalg.norm(embedded_target[neighbors] - embedded_target[i], axis=1) + 1e-10)
         weights /= np.sum(weights)
         prediction = np.sum(weights * source[neighbors])
-        predictions.append(prediction)
+        pd.concat([predictions, prediction])
     return predictions
 
 
@@ -174,7 +174,7 @@ def cross_map(source, target, delay, dimension):
         weights = 1 / (np.linalg.norm(embedded_target[neighbors] - embedded_target[i], axis=1) + 1e-9)
         weights /= np.sum(weights)
         prediction = np.sum(weights * source[neighbors])
-        predictions.append(prediction)
+        pd.concat([predictions, prediction])
     return predictions
 
 # Apply CCM
