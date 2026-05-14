@@ -1,7 +1,7 @@
 # Manifolds and the Geometry of Dynamics for Time Series Analysis
 
-**Published:** 2025-01-22
-**Medium:** [https://medium.com/@kyle-t-jones/manifolds-and-the-geometry-of-dynamics-for-time-series-analysis-48886b60126d](https://medium.com/@kyle-t-jones/manifolds-and-the-geometry-of-dynamics-for-time-series-analysis-48886b60126d)
+Published: 2025-01-22
+Medium: [https://medium.com/@kyle-t-jones/manifolds-and-the-geometry-of-dynamics-for-time-series-analysis-48886b60126d](https://medium.com/@kyle-t-jones/manifolds-and-the-geometry-of-dynamics-for-time-series-analysis-48886b60126d)
 
 ## About
 
