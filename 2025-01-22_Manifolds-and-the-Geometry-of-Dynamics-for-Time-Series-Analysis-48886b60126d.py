@@ -9,6 +9,7 @@ import logging
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+np.random.seed(42)
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(
@@ -103,7 +104,6 @@ plt.savefig("fnn_ratios.png")
 plt.show()
 
 # Generate synthetic causally related time series
-np.random.seed(42)
 t = np.linspace(0, 20, 1000)
 source_series = np.sin(t) + 0.1 * np.random.randn(len(t))
 target_series = np.sin(t - np.pi / 4) + 0.2 * np.random.randn(len(t))
@@ -123,7 +123,6 @@ plt.show()
 
 
 # Simulate financial time series
-np.random.seed(42)
 t = np.linspace(0, 100, 1000)
 stock_index = np.sin(t) + 0.05 * np.random.randn(len(t))  # Stock index with noise
 bond_yield = np.sin(t - np.pi / 6) + 0.05 * np.random.randn(len(t))  # Bond yield, lagged by phase shift
