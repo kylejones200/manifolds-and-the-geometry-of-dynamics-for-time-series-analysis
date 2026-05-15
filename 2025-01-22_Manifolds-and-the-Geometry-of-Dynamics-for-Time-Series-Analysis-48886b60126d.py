@@ -37,7 +37,7 @@ def time_delay_embedding(series, delay, dimension):
 
 # False Nearest Neighbors
 def false_nearest_neighbors(series, delay, max_dim, threshold=10):
-    n = len(series)
+    len(series)
     fnn_ratios = []
     for dim in range(1, max_dim + 1):
         embedded = time_delay_embedding(series, delay, dim)
@@ -81,7 +81,7 @@ plt.savefig("reconstructed_attractor.png")
 plt.show()
 
 def false_nearest_neighbors(series, delay, max_dim, threshold=10):
-    n = len(series)
+    len(series)
     fnn_ratios = []
     for dim in range(1, max_dim + 1):
         embedded = time_delay_embedding(series, delay, dim)
