@@ -66,7 +66,7 @@ def cross_map(source, target, delay, dimension):
         )
         weights /= np.sum(weights)
         prediction = np.sum(weights * source[neighbors])
-        pd.concat([predictions, prediction])
+        predictions.append(prediction)
     return predictions
 
 
@@ -198,7 +198,7 @@ def cross_map(source, target, delay, dimension):
         )
         weights /= np.sum(weights)
         prediction = np.sum(weights * source[neighbors])
-        pd.concat([predictions, prediction])
+        predictions.append(prediction)
     return predictions
 
 
