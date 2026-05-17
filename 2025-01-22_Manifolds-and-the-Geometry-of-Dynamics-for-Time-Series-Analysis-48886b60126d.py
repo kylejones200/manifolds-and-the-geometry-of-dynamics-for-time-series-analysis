@@ -1,6 +1,5 @@
 # Description: Short example for Manifolds and the Geometry of Dynamics for Time Series Analysis.
 
-
 import logging
 
 import matplotlib.pyplot as plt
@@ -18,7 +17,6 @@ logging.basicConfig(
     format="%(asctime)s [%(levelname)s] %(name)s: %(message)s",
 )
 
-
 # Lorenz system
 def lorenz_system(t, state, sigma=10, beta=8 / 3, rho=28):
     x, y, z = state
@@ -27,7 +25,6 @@ def lorenz_system(t, state, sigma=10, beta=8 / 3, rho=28):
     dz = x * y - beta * z
     return [dx, dy, dz]
 
-
 # Time-delay embedding
 def time_delay_embedding(series, delay, dimension):
     n = len(series)
@@ -35,7 +32,6 @@ def time_delay_embedding(series, delay, dimension):
     for i in range(dimension):
         embedded[:, i] = series[i * delay : n - (dimension - 1 - i) * delay]
     return embedded
-
 
 # False Nearest Neighbors
 def false_nearest_neighbors(series, delay, max_dim, threshold=10):
@@ -50,7 +46,6 @@ def false_nearest_neighbors(series, delay, max_dim, threshold=10):
         fnn_count = np.sum((distances_next / distances) > threshold)
         fnn_ratios.append(fnn_count / len(embedded))
     return fnn_ratios
-
 
 # Cross Mapping
 def cross_map(source, target, delay, dimension):
@@ -68,7 +63,6 @@ def cross_map(source, target, delay, dimension):
         prediction = np.sum(weights * source[neighbors])
         predictions.append(prediction)
     return predictions
-
 
 # Generate a synthetic chaotic time series
 t_span = (0, 40)
@@ -89,19 +83,6 @@ ax.plot(embedded_data[:, 0], embedded_data[:, 1], embedded_data[:, 2])
 ax.set_title("Reconstructed Attractor")
 plt.savefig("reconstructed_attractor.png")
 plt.show()
-
-
-def false_nearest_neighbors(series, delay, max_dim, threshold=10):
-    len(series)
-    fnn_ratios = []
-    for dim in range(1, max_dim + 1):
-        embedded = time_delay_embedding(series, delay, dim)
-        distances = pairwise_distances(embedded[:-1])
-        distances_next = pairwise_distances(embedded[1:])
-        false_nearest_count = np.sum(distances_next / distances > threshold)
-        fnn_ratios.append(false_nearest_count / len(embedded))
-    return fnn_ratios
-
 
 # FNN analysis
 max_dim = 10
@@ -135,7 +116,6 @@ plt.title("Convergent Cross Mapping (CCM)")
 plt.savefig("ccm_results.png")
 plt.show()
 
-
 # Simulate financial time series
 t = np.linspace(0, 100, 1000)
 stock_index = np.sin(t) + 0.05 * np.random.randn(len(t))  # Stock index with noise
@@ -157,15 +137,7 @@ plt.title("Simulated Financial Time Series")
 plt.savefig("financial_time_series.png")
 plt.show()
 
-
 # Time-delay embedding function
-def time_delay_embedding(series, delay, dimension):
-    n = len(series)
-    embedded = np.zeros((n - (dimension - 1) * delay, dimension))
-    for i in range(dimension):
-        embedded[:, i] = series[i * delay : n - (dimension - 1 - i) * delay]
-    return embedded
-
 
 # Parameters for embedding
 delay = 10  # Chosen time delay
@@ -180,27 +152,6 @@ ax.plot(stock_manifold[:, 0], stock_manifold[:, 1], stock_manifold[:, 2])
 ax.set_title("Stock Index Reconstructed Manifold")
 plt.savefig("stock_index_manifold.png")
 plt.show()
-
-
-def cross_map(source, target, delay, dimension):
-    # Reconstruct the target manifold
-    embedded_target = time_delay_embedding(target, delay, dimension)
-    predictions = []
-    for i in range(len(embedded_target)):
-        # Find nearest neighbors in the embedded space
-        neighbors = np.argsort(
-            np.linalg.norm(embedded_target - embedded_target[i], axis=1)
-        )[: dimension + 1]
-        # Avoid division by zero by adding a small constant
-        weights = 1 / (
-            np.linalg.norm(embedded_target[neighbors] - embedded_target[i], axis=1)
-            + 1e-9
-        )
-        weights /= np.sum(weights)
-        prediction = np.sum(weights * source[neighbors])
-        predictions.append(prediction)
-    return predictions
-
 
 # Apply CCM
 predicted_stock = cross_map(stock_index, bond_yield, delay, dimension)
