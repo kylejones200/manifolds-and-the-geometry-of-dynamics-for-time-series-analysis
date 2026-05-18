@@ -4,7 +4,6 @@ import logging
 
 import matplotlib.pyplot as plt
 import numpy as np
-import pandas as pd
 from scipy.integrate import solve_ivp
 from sklearn.metrics import pairwise_distances
 from sklearn.preprocessing import MinMaxScaler
@@ -17,6 +16,7 @@ logging.basicConfig(
     format="%(asctime)s [%(levelname)s] %(name)s: %(message)s",
 )
 
+
 # Lorenz system
 def lorenz_system(t, state, sigma=10, beta=8 / 3, rho=28):
     x, y, z = state
@@ -25,6 +25,7 @@ def lorenz_system(t, state, sigma=10, beta=8 / 3, rho=28):
     dz = x * y - beta * z
     return [dx, dy, dz]
 
+
 # Time-delay embedding
 def time_delay_embedding(series, delay, dimension):
     n = len(series)
@@ -32,6 +33,7 @@ def time_delay_embedding(series, delay, dimension):
     for i in range(dimension):
         embedded[:, i] = series[i * delay : n - (dimension - 1 - i) * delay]
     return embedded
+
 
 # False Nearest Neighbors
 def false_nearest_neighbors(series, delay, max_dim, threshold=10):
@@ -47,22 +49,23 @@ def false_nearest_neighbors(series, delay, max_dim, threshold=10):
         fnn_ratios.append(fnn_count / len(embedded))
     return fnn_ratios
 
+
 # Cross Mapping
 def cross_map(source, target, delay, dimension):
     embedded_target = time_delay_embedding(target, delay, dimension)
     predictions = []
     for i in range(len(embedded_target)):
-        neighbors = np.argsort(
-            np.linalg.norm(embedded_target - embedded_target[i], axis=1)
-        )[: dimension + 1]
+        neighbors = np.argsort(np.linalg.norm(embedded_target - embedded_target[i], axis=1))[
+            : dimension + 1
+        ]
         weights = 1 / (
-            np.linalg.norm(embedded_target[neighbors] - embedded_target[i], axis=1)
-            + 1e-10
+            np.linalg.norm(embedded_target[neighbors] - embedded_target[i], axis=1) + 1e-10
         )
         weights /= np.sum(weights)
         prediction = np.sum(weights * source[neighbors])
         predictions.append(prediction)
     return predictions
+
 
 # Generate a synthetic chaotic time series
 t_span = (0, 40)
@@ -157,12 +160,8 @@ plt.show()
 predicted_stock = cross_map(stock_index, bond_yield, delay, dimension)
 predicted_bond = cross_map(bond_yield, stock_index, delay, dimension)
 
-stock_to_bond_corr = np.corrcoef(stock_index[: len(predicted_bond)], predicted_bond)[
-    0, 1
-]
-bond_to_stock_corr = np.corrcoef(bond_yield[: len(predicted_stock)], predicted_stock)[
-    0, 1
-]
+stock_to_bond_corr = np.corrcoef(stock_index[: len(predicted_bond)], predicted_bond)[0, 1]
+bond_to_stock_corr = np.corrcoef(bond_yield[: len(predicted_stock)], predicted_stock)[0, 1]
 logger.info(f"Stock Index → Bond Yield CCM Correlation: {stock_to_bond_corr:.2f}")
 logger.info(f"Bond Yield → Stock Index CCM Correlation: {bond_to_stock_corr:.2f}")
 # Visualize the CCM predictions
