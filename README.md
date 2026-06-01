@@ -11,14 +11,7 @@ Time series data often represent observations from complex systems governed by n
 
 In non-linear dynamics, systems evolve on structures called manifolds --- smooth, high-dimensional surfaces that describe the system's state space. Over time, these dynamics may collapse into an attractor, a lower-dimensional structure capturing the system's essential behavior.
 
-## About
 
-Place the code for this article in this repository.
-The original article export is saved as `article.md`.
-
-## Files
-
-Add your `.ipynb`, `.py`, `.yaml`, `.js`, `.ts`, or other project files here.
 
 ## Disclaimer
 
